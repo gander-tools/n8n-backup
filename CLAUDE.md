@@ -284,22 +284,31 @@ bun test tests/integration/
 bun run dev
 
 # Tests
-bun test                 # Run all tests
-bun test --watch         # TDD mode
-bun test --coverage      # With coverage report
+bun test                    # Run unit tests (default)
+bun test:unit               # Run unit tests only
+bun test:integration        # Run integration tests (requires PocketBase)
+bun test:all                # Run all tests (unit + integration)
+bun test:watch              # TDD mode (unit tests)
+bun test:coverage           # Unit tests with coverage
+bun test:coverage:all       # All tests with coverage
 
 # Linting & Formatting
-bun run lint             # Check for issues
-bun run lint:fix         # Auto-fix issues
-bun run format           # Format code
-bun run format:check     # Check formatting
+bun run lint                # Check for issues
+bun run lint:fix            # Auto-fix issues
+bun run format              # Format code
+bun run format:check        # Check formatting
+
+# TypeScript
+bun run typecheck           # Type checking
 
 # Build
-bun run build            # Production build
+bun run build               # Production build
 
 # CI Pipeline (run all checks)
-bun run ci
+bun run ci                  # format + lint + typecheck + coverage
 ```
+
+**Note:** By default, `bun test` runs only unit tests to avoid timeout issues when PocketBase is not running. Use `bun test:all` to run all tests.
 
 ## Documentation Requirements
 

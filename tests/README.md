@@ -31,21 +31,28 @@ We strictly follow the Red-Green-Refactor cycle:
 ## Running Tests
 
 ```bash
-# Run all tests
+# Run unit tests (default, fast)
 bun test
+# or
+bun test:unit
 
-# Run with coverage
-bun test --coverage
+# Run with coverage (unit tests)
+bun test:coverage
 
 # Run in watch mode (for TDD)
-bun test --watch
+bun test:watch
 
-# Run only unit tests
-bun test tests/unit/
+# Run integration tests (requires PocketBase)
+bun test:integration
 
-# Run only integration tests (requires PocketBase)
-bun test tests/integration/
+# Run ALL tests (unit + integration)
+bun test:all
+
+# Run ALL tests with coverage
+bun test:coverage:all
 ```
+
+**⚠️ Note:** Default `bun test` runs only unit tests to avoid timeout when PocketBase is not running.
 
 **📖 For detailed setup instructions, see [TESTING.md](./TESTING.md)**
 
