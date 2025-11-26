@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'bun:test';
-import { getVersionInfo } from '../../../src/commands/version';
 import pkg from '../../../package.json';
+import { getVersionInfo } from '../../../src/commands/version';
 
 describe('version command', () => {
   test('should return package name and version', () => {
