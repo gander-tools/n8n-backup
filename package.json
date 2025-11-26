@@ -54,7 +54,9 @@
     "lefthook": "^1.9.1",
     "typescript": "^5.9.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "pocketbase": "^0.26.3"
+  },
   "keywords": [
     "n8n",
     "backup",

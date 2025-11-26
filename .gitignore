@@ -170,3 +170,14 @@ dist
 
 # IntelliJ based IDEs
 .idea
+
+# Test integration data
+tests/integration/pb_data/
+tests/integration/pb_migrations/
+tests/integration/n8n_data/
+
+# macOS
+.DS_Store
+
+# Bun
+bun.lockb

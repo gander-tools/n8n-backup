@@ -21,4 +21,4 @@ pre-push:
   parallel: false
   commands:
     tests:
-      run: bun test
+      run: bun test tests/unit/

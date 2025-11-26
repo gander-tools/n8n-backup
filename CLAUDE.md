@@ -20,6 +20,16 @@ This document provides guidance for Claude Code (AI assistant) when working on t
 - **Testing**: Bun test (min 80% coverage)
 - **Git Hooks**: Lefthook (local only)
 
+### Installing Bun
+
+If Bun is not available in the system, install it globally using npm:
+
+```bash
+npm install -g bun
+```
+
+This ensures Bun is available without searching for system installations.
+
 ## Important Note for Claude Code
 
 **When the user mentions `npm` or `npx`, they mean `bun` and `bunx`.**
@@ -79,11 +89,14 @@ src/
 **ALWAYS run these commands before committing ANY changes:**
 
 ```bash
-bun run format     # Format all files
-bun run lint       # Check for linting issues
+bun run format     # Format all files (biome format --write .)
+bun run lint       # Check for linting issues (biome check .)
+bun run typecheck  # Verify TypeScript types (tsc --noEmit)
 ```
 
 **This is MANDATORY. Never commit without running these commands first.**
+
+The pre-commit hook (lefthook) will automatically run these checks, but you should run them manually first to catch issues early.
 
 If you encounter errors:
 1. Run `bun run format` to auto-fix formatting issues
