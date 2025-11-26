@@ -1,9 +1,6 @@
 /**
  * Core type definitions for n8n-backup
  *
- * Copyright (C) 2025 Adam Gąsowski (https://github.com/gander)
- * Licensed under GPL-3.0
- *
  * Following TDD principles:
  * - Types are defined before implementation
  * - Each type has corresponding tests
