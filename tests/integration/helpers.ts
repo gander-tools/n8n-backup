@@ -17,33 +17,33 @@ import type { PocketBaseClient } from '../../src/services/pocketbase-client.js';
  * @throws Error if PocketBase doesn't become ready
  */
 export async function waitForPocketBase(
-	url: string,
-	maxRetries = 30,
-	retryDelay = 1000,
+  url: string,
+  maxRetries = 30,
+  retryDelay = 1000,
 ): Promise<void> {
-	for (let i = 0; i < maxRetries; i++) {
-		try {
-			const response = await fetch(`${url}/api/health`, {
-				signal: AbortSignal.timeout(2000),
-			});
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      const response = await fetch(`${url}/api/health`, {
+        signal: AbortSignal.timeout(2000),
+      });
 
-			if (response.ok) {
-				const data = (await response.json()) as { code?: number };
-				if (data.code === 200) {
-					return;
-				}
-			}
-		} catch (error) {
-			// PocketBase not ready yet, continue waiting
-		}
+      if (response.ok) {
+        const data = (await response.json()) as { code?: number };
+        if (data.code === 200) {
+          return;
+        }
+      }
+    } catch (error) {
+      // PocketBase not ready yet, continue waiting
+    }
 
-		// Wait before next retry
-		await new Promise((resolve) => setTimeout(resolve, retryDelay));
-	}
+    // Wait before next retry
+    await new Promise((resolve) => setTimeout(resolve, retryDelay));
+  }
 
-	throw new Error(
-		`PocketBase at ${url} did not become ready after ${maxRetries} retries`,
-	);
+  throw new Error(
+    `PocketBase at ${url} did not become ready after ${maxRetries} retries`,
+  );
 }
 
 /**
@@ -55,37 +55,37 @@ export async function waitForPocketBase(
  * @param schema - Collection schema definition
  */
 export async function createTestCollection(
-	client: PocketBaseClient,
-	collectionName: string,
-	schema: Array<{
-		name: string;
-		type: string;
-		required?: boolean;
-		options?: Record<string, unknown>;
-	}>,
+  client: PocketBaseClient,
+  collectionName: string,
+  schema: Array<{
+    name: string;
+    type: string;
+    required?: boolean;
+    options?: Record<string, unknown>;
+  }>,
 ): Promise<void> {
-	const pb = client.getClient();
+  const pb = client.getClient();
 
-	try {
-		// Try to delete existing test collection
-		const collections = await pb.collections.getFullList();
-		const existingCollection = collections.find(
-			(c) => c.name === collectionName,
-		);
+  try {
+    // Try to delete existing test collection
+    const collections = await pb.collections.getFullList();
+    const existingCollection = collections.find(
+      (c) => c.name === collectionName,
+    );
 
-		if (existingCollection) {
-			await pb.collections.delete(existingCollection.id);
-		}
-	} catch (error) {
-		// Collection doesn't exist, which is fine
-	}
+    if (existingCollection) {
+      await pb.collections.delete(existingCollection.id);
+    }
+  } catch (error) {
+    // Collection doesn't exist, which is fine
+  }
 
-	// Create test collection with schema
-	await pb.collections.create({
-		name: collectionName,
-		type: 'base',
-		schema,
-	});
+  // Create test collection with schema
+  await pb.collections.create({
+    name: collectionName,
+    type: 'base',
+    schema,
+  });
 }
 
 /**
@@ -96,24 +96,24 @@ export async function createTestCollection(
  * @param collectionName - Name of the collection to delete
  */
 export async function deleteTestCollection(
-	client: PocketBaseClient,
-	collectionName: string,
+  client: PocketBaseClient,
+  collectionName: string,
 ): Promise<void> {
-	const pb = client.getClient();
+  const pb = client.getClient();
 
-	try {
-		const collections = await pb.collections.getFullList();
-		const testCollection = collections.find(
-			(c) => c.name === collectionName,
-		);
+  try {
+    const collections = await pb.collections.getFullList();
+    const testCollection = collections.find(
+      (c) => c.name === collectionName,
+    );
 
-		if (testCollection) {
-			await pb.collections.delete(testCollection.id);
-		}
-	} catch (error) {
-		// Ignore cleanup errors
-		console.warn(`Failed to delete test collection ${collectionName}:`, error);
-	}
+    if (testCollection) {
+      await pb.collections.delete(testCollection.id);
+    }
+  } catch (error) {
+    // Ignore cleanup errors
+    console.warn(`Failed to delete test collection ${collectionName}:`, error);
+  }
 }
 
 /**
@@ -124,21 +124,21 @@ export async function deleteTestCollection(
  * @param collectionName - Name of the collection to clean
  */
 export async function cleanupCollectionRecords(
-	client: PocketBaseClient,
-	collectionName: string,
+  client: PocketBaseClient,
+  collectionName: string,
 ): Promise<void> {
-	try {
-		const records = await client.listRecords(collectionName);
+  try {
+    const records = await client.listRecords(collectionName);
 
-		for (const record of records) {
-			await client.deleteRecord(collectionName, record.id);
-		}
-	} catch (error) {
-		console.warn(
-			`Failed to cleanup records in collection ${collectionName}:`,
-			error,
-		);
-	}
+    for (const record of records) {
+      await client.deleteRecord(collectionName, record.id);
+    }
+  } catch (error) {
+    console.warn(
+      `Failed to cleanup records in collection ${collectionName}:`,
+      error,
+    );
+  }
 }
 
 /**
@@ -151,18 +151,18 @@ export async function cleanupCollectionRecords(
  * @returns Array of created record IDs
  */
 export async function createTestRecords<T extends Record<string, unknown>>(
-	client: PocketBaseClient,
-	collectionName: string,
-	records: T[],
+  client: PocketBaseClient,
+  collectionName: string,
+  records: T[],
 ): Promise<string[]> {
-	const ids: string[] = [];
+  const ids: string[] = [];
 
-	for (const record of records) {
-		const created = await client.createRecord(collectionName, record);
-		ids.push(created.id);
-	}
+  for (const record of records) {
+    const created = await client.createRecord(collectionName, record);
+    ids.push(created.id);
+  }
 
-	return ids;
+  return ids;
 }
 
 /**
@@ -175,21 +175,21 @@ export async function createTestRecords<T extends Record<string, unknown>>(
  * @throws Error if timeout is reached
  */
 export async function waitForCondition(
-	condition: () => boolean | Promise<boolean>,
-	timeout = 10000,
-	pollInterval = 100,
+  condition: () => boolean | Promise<boolean>,
+  timeout = 10000,
+  pollInterval = 100,
 ): Promise<void> {
-	const startTime = Date.now();
+  const startTime = Date.now();
 
-	while (Date.now() - startTime < timeout) {
-		const result = await condition();
-		if (result) {
-			return;
-		}
-		await new Promise((resolve) => setTimeout(resolve, pollInterval));
-	}
+  while (Date.now() - startTime < timeout) {
+    const result = await condition();
+    if (result) {
+      return;
+    }
+    await new Promise((resolve) => setTimeout(resolve, pollInterval));
+  }
 
-	throw new Error(`Condition not met within ${timeout}ms`);
+  throw new Error(`Condition not met within ${timeout}ms`);
 }
 
 /**
@@ -200,14 +200,14 @@ export async function waitForCondition(
  * @returns Random alphanumeric string
  */
 export function generateRandomString(length = 8): string {
-	const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-	let result = '';
+  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
 
-	for (let i = 0; i < length; i++) {
-		result += chars.charAt(Math.floor(Math.random() * chars.length));
-	}
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
 
-	return result;
+  return result;
 }
 
 /**
@@ -218,9 +218,9 @@ export function generateRandomString(length = 8): string {
  * @returns Unique collection name
  */
 export function generateTestCollectionName(prefix = 'test'): string {
-	const timestamp = Date.now();
-	const random = generateRandomString(4);
-	return `${prefix}_${timestamp}_${random}`;
+  const timestamp = Date.now();
+  const random = generateRandomString(4);
+  return `${prefix}_${timestamp}_${random}`;
 }
 
 /**
@@ -234,26 +234,26 @@ export function generateTestCollectionName(prefix = 'test'): string {
  * @throws Last error if all retries fail
  */
 export async function retryWithBackoff<T>(
-	fn: () => Promise<T>,
-	maxRetries = 3,
-	initialDelay = 100,
+  fn: () => Promise<T>,
+  maxRetries = 3,
+  initialDelay = 100,
 ): Promise<T> {
-	let lastError: Error | undefined;
+  let lastError: Error | undefined;
 
-	for (let i = 0; i < maxRetries; i++) {
-		try {
-			return await fn();
-		} catch (error) {
-			lastError = error instanceof Error ? error : new Error(String(error));
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      return await fn();
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
 
-			if (i < maxRetries - 1) {
-				const delay = initialDelay * 2 ** i;
-				await new Promise((resolve) => setTimeout(resolve, delay));
-			}
-		}
-	}
+      if (i < maxRetries - 1) {
+        const delay = initialDelay * 2 ** i;
+        await new Promise((resolve) => setTimeout(resolve, delay));
+      }
+    }
+  }
 
-	throw lastError || new Error('Retry failed');
+  throw lastError || new Error('Retry failed');
 }
 
 /**
@@ -264,13 +264,13 @@ export async function retryWithBackoff<T>(
  * @returns Tuple of [result, duration in ms]
  */
 export async function measureExecutionTime<T>(
-	fn: () => Promise<T>,
+  fn: () => Promise<T>,
 ): Promise<[T, number]> {
-	const startTime = Date.now();
-	const result = await fn();
-	const duration = Date.now() - startTime;
+  const startTime = Date.now();
+  const result = await fn();
+  const duration = Date.now() - startTime;
 
-	return [result, duration];
+  return [result, duration];
 }
 
 /**
@@ -283,18 +283,18 @@ export async function measureExecutionTime<T>(
  * @throws Error if execution time exceeds maxDuration
  */
 export async function assertExecutionTime<T>(
-	fn: () => Promise<T>,
-	maxDuration: number,
+  fn: () => Promise<T>,
+  maxDuration: number,
 ): Promise<T> {
-	const [result, duration] = await measureExecutionTime(fn);
+  const [result, duration] = await measureExecutionTime(fn);
 
-	if (duration > maxDuration) {
-		throw new Error(
-			`Execution time ${duration}ms exceeded maximum ${maxDuration}ms`,
-		);
-	}
+  if (duration > maxDuration) {
+    throw new Error(
+      `Execution time ${duration}ms exceeded maximum ${maxDuration}ms`,
+    );
+  }
 
-	return result;
+  return result;
 }
 
 /**
@@ -304,5 +304,5 @@ export async function assertExecutionTime<T>(
  * @param ms - Duration in milliseconds
  */
 export async function sleep(ms: number): Promise<void> {
-	await new Promise((resolve) => setTimeout(resolve, ms));
+  await new Promise((resolve) => setTimeout(resolve, ms));
 }
