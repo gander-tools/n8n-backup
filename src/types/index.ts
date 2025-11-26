@@ -52,3 +52,6 @@ export interface Profile {
   /** Is this the default profile */
   isDefault: boolean;
 }
+
+// Export PocketBase types
+export * from './pocketbase.js';
