@@ -30,6 +30,45 @@ npm install -g bun
 
 This ensures Bun is available without searching for system installations.
 
+### Setting Up PocketBase for Tests
+
+Integration tests require a running PocketBase instance. PocketBase is available as a single binary executable.
+
+**Quick Setup (Recommended):**
+
+```bash
+# Download PocketBase binary (Linux example)
+curl -L https://github.com/pocketbase/pocketbase/releases/latest/download/pocketbase_linux_amd64.zip -o pocketbase.zip
+unzip pocketbase.zip
+chmod +x pocketbase
+
+# Run PocketBase on port 8090
+./pocketbase serve --http=127.0.0.1:8090
+
+# In another terminal, create admin account via API:
+curl -X POST http://127.0.0.1:8090/api/admins \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "admin@test.local",
+    "password": "testpassword123",
+    "passwordConfirm": "testpassword123"
+  }'
+```
+
+**Alternative Methods:**
+- **Docker Compose**: `docker compose -f docker-compose.test.yml up -d pocketbase`
+- **Build from source**: Requires Go, see `tests/TESTING.md`
+
+**For macOS:**
+- Apple Silicon: `pocketbase_darwin_arm64.zip`
+- Intel: `pocketbase_darwin_amd64.zip`
+
+**For Windows:**
+- Download: `pocketbase_windows_amd64.zip`
+- Extract and run: `.\pocketbase.exe serve --http=127.0.0.1:8090`
+
+📖 **Detailed instructions**: See [`tests/TESTING.md`](tests/TESTING.md) for complete setup guide, troubleshooting, and all available methods.
+
 ## Important Note for Claude Code
 
 **When the user mentions `npm` or `npx`, they mean `bun` and `bunx`.**
@@ -207,10 +246,35 @@ describe('Feature Name', () => {
 
 ### Integration Tests
 
+Integration tests require PocketBase to be running. See "Setting Up PocketBase for Tests" section above.
+
 ```typescript
-// Use Docker containers for n8n and PocketBase
-// Test full backup/restore flow
-// Clean up after tests
+// Integration tests test real PocketBase communication
+// They require PocketBase running at http://localhost:8090
+// Admin credentials: admin@test.local / testpassword123
+
+import { beforeAll, describe, expect, test } from 'bun:test';
+
+describe('Integration Test Example', () => {
+  beforeAll(async () => {
+    // Wait for PocketBase to be ready
+    await waitForPocketBase('http://localhost:8090', 30);
+  });
+
+  test('should communicate with PocketBase', async () => {
+    const response = await fetch('http://localhost:8090/api/health');
+    expect(response.ok).toBe(true);
+  });
+});
+```
+
+**Running integration tests:**
+```bash
+# Start PocketBase first (see setup section)
+./pocketbase serve --http=127.0.0.1:8090
+
+# In another terminal, run tests
+bun test tests/integration/
 ```
 
 ## Running the Project
