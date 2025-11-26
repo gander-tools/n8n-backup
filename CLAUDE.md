@@ -20,6 +20,23 @@ This document provides guidance for Claude Code (AI assistant) when working on t
 - **Testing**: Bun test (min 80% coverage)
 - **Git Hooks**: Lefthook (local only)
 
+## Important Note for Claude Code
+
+**When the user mentions `npm` or `npx`, they mean `bun` and `bunx`.**
+
+This project uses **Bun** as the primary runtime and package manager. Always use:
+- `bun install` instead of `npm install`
+- `bun add` instead of `npm install <package>`
+- `bunx` instead of `npx`
+- `bun run` instead of `npm run`
+
+Example corrections:
+- ❌ `npm install -g @gander-tools/n8n-backup`
+- ✅ `bun install -g @gander-tools/n8n-backup`
+
+- ❌ `npx @gander-tools/n8n-backup`
+- ✅ `bunx @gander-tools/n8n-backup`
+
 ## Development Methodology
 
 ### Test-Driven Development (TDD)

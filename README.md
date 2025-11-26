@@ -32,11 +32,11 @@ A modern, type-safe CLI tool built with **Bun** and **TypeScript** that enables 
 ### Installation
 
 ```bash
-# Install globally via npm
-npm install -g @gander-tools/n8n-backup
+# Install globally via bun
+bun install -g @gander-tools/n8n-backup
 
-# Or use with npx
-npx @gander-tools/n8n-backup
+# Or use with bunx (no installation required)
+bunx @gander-tools/n8n-backup
 ```
 
 ### Basic Usage
