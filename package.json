@@ -28,11 +28,7 @@
   "bin": {
     "n8n-backup": "dist/cli.js"
   },
-  "files": [
-    "dist",
-    "README.md",
-    "LICENSE"
-  ],
+  "files": ["dist", "README.md", "LICENSE"],
   "engines": {
     "bun": ">=1.3.0",
     "node": ">=18.0.0"

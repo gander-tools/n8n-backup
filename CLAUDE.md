@@ -74,12 +74,29 @@ src/
 
 ## Code Quality Standards
 
+### ⚠️ CRITICAL: Pre-Commit Requirements
+
+**ALWAYS run these commands before committing ANY changes:**
+
+```bash
+bun run format     # Format all files
+bun run lint       # Check for linting issues
+```
+
+**This is MANDATORY. Never commit without running these commands first.**
+
+If you encounter errors:
+1. Run `bun run format` to auto-fix formatting issues
+2. Run `bun run lint:fix` to auto-fix linting issues
+3. Manually fix any remaining issues
+4. Verify with `bun run format:check` and `bun run lint`
+
 ### Formatting & Linting
 
 - **Always use Biome** (not ESLint/Prettier)
 - Run `bun run lint` before commits
 - Run `bun run format` to auto-fix
-- Lefthook enforces these automatically
+- Lefthook enforces these automatically (but Claude Code must do it manually)
 
 ### TypeScript
 
