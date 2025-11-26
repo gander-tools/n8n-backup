@@ -35,7 +35,7 @@
   },
   "scripts": {
     "dev": "bun run src/index.ts",
-    "build": "bun build src/index.ts --outdir dist --target node --minify",
+    "build": "bun build src/index.ts src/cli.ts --outdir dist --target node --minify",
     "test": "bun test tests/unit/",
     "test:unit": "bun test tests/unit/",
     "test:integration": "bun test tests/integration/",
