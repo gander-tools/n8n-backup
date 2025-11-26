@@ -1,5 +1,16 @@
 {
   "hooks": {
-    "sessionStart": "if ! command -v bun &> /dev/null; then echo '⚠️  Bun not found. Checking for npm...'; if command -v npm &> /dev/null; then echo '📦 Installing Bun globally using npm...'; npm install -g bun && echo '✅ Bun installed successfully!' || echo '❌ Failed to install Bun'; else echo '❌ npm not found. Cannot install Bun automatically.'; fi; else echo '✅ Bun is already installed:' && bun --version; fi"
+    "sessionStart": "if ! command -v bun &> /dev/null; then echo '⚠️  Bun not found. Checking for npm...'; if command -v npm &> /dev/null; then echo '📦 Installing Bun globally using npm...'; npm install -g bun && echo '✅ Bun installed successfully!' || echo '❌ Failed to install Bun'; else echo '❌ npm not found. Cannot install Bun automatically.'; fi; else echo '✅ Bun is already installed:' && bun --version; fi",
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$CLAUDE_PROJECT_DIR\" && bun run format && bun run lint:fix"
+          }
+        ]
+      }
+    ]
   }
 }
