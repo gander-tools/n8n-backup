@@ -1,8 +1,8 @@
 # n8n-backup
 
 [![TDD](https://img.shields.io/badge/TDD-Enabled-green?style=flat-square&logo=checkmarx)](https://github.com/gander-tools/n8n-backup)
-[![Bun](https://img.shields.io/badge/Bun-%3E%3D1.3-black?style=flat-square&logo=bun)](https://bun.sh)
-[![TypeScript](https://img.shields.io/badge/TypeScript-%3E%3D5.9-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org)
+[![Bun](https://img.shields.io/badge/Bun-1.3-black?style=flat-square&logo=bun)](https://bun.sh)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org)
 [![Claude Code](https://img.shields.io/badge/Built_with-Claude_Code-blueviolet?style=flat-square&logo=anthropic)](https://claude.ai)
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square)](https://www.gnu.org/licenses/gpl-3.0)
 [![Test Coverage](https://img.shields.io/badge/coverage-%3E80%25-brightgreen?style=flat-square)](https://github.com/gander-tools/n8n-backup)
@@ -35,8 +35,8 @@ A modern, type-safe CLI tool built with **Bun** and **TypeScript** that enables 
 # Install globally via npm
 npm install -g @gander-tools/n8n-backup
 
-# Or use with bunx
-bunx @gander-tools/n8n-backup
+# Or use with npx
+npx @gander-tools/n8n-backup
 ```
 
 ### Basic Usage
