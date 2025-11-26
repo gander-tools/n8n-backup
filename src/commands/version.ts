@@ -10,5 +10,5 @@ import pkg from '../../package.json';
  * @returns Formatted string with package name and version
  */
 export function getVersionInfo(): string {
-	return `${pkg.name} v${pkg.version}`;
+  return `${pkg.name} v${pkg.version}`;
 }
