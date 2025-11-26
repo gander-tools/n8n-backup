@@ -265,13 +265,18 @@ Copyright (C) 2025 [Adam Gąsowski](https://github.com/gander)
 
 ## 🎯 Roadmap
 
-- [x] MVP: Backup and restore commands
+> **Status**: Project in planning phase. See [ROADMAP.md](ROADMAP.md) for complete feature list.
+
+- [ ] MVP: Core backup and restore functionality
+- [ ] Profile management system
 - [ ] Sync command with merge strategies
 - [ ] Selective backup (filter by ID, tags, date)
 - [ ] Differential backup (track changes)
 - [ ] Advanced output formats (JSON, CI mode)
 - [ ] Retention policies and cleanup command
 - [ ] Encryption and signing (GPG/KMS)
+
+For detailed implementation plan, see the [complete roadmap](ROADMAP.md).
 
 ## 💬 Support
 
