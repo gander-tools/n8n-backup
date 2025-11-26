@@ -1,0 +1,24 @@
+# Lefthook configuration for local development
+# Git hooks enforce code quality before commits
+# CI/CD pipeline runs separate checks
+
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      glob: "*.{ts,js,json}"
+      run: bun run format:check {staged_files}
+      stage_fixed: true
+
+    lint:
+      glob: "*.{ts,js}"
+      run: bun run lint {staged_files}
+
+    typecheck:
+      run: bun run typecheck
+
+pre-push:
+  parallel: false
+  commands:
+    tests:
+      run: bun test
