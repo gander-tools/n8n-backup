@@ -41,11 +41,13 @@ bun test --coverage
 bun test --watch
 
 # Run only unit tests
-bun test tests/unit
+bun test tests/unit/
 
-# Run only integration tests
-bun test tests/integration
+# Run only integration tests (requires PocketBase)
+bun test tests/integration/
 ```
+
+**📖 For detailed setup instructions, see [TESTING.md](./TESTING.md)**
 
 ## Coverage Requirements
 
