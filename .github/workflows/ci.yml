@@ -36,7 +36,7 @@ jobs:
         run: bun run typecheck
 
       - name: 🧪 Run tests with coverage
-        run: bun test --coverage
+        run: bun run test:coverage
 
       - name: 📊 Upload coverage reports
         uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # v4.5.0
