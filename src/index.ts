@@ -5,6 +5,7 @@
 
 export * from './types/index.js';
 export * from './services/pocketbase-client.js';
+export * from './commands/version.js';
 
 /**
  * Main entry point for the n8n-backup CLI
