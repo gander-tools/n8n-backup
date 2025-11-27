@@ -125,8 +125,14 @@ go build
 Once PocketBase is running:
 
 ```bash
-# Run integration tests
+# Run all integration tests
 bun test tests/integration/
+
+# Run specific integration test suites
+bun test tests/integration/pocketbase-client.test.ts      # Basic connectivity
+bun test tests/integration/pocketbase-client-crud.test.ts # CRUD operations
+bun test tests/integration/cli.test.ts                    # CLI execution
+bun test tests/integration/end-to-end.test.ts             # End-to-end workflows
 
 # Run with specific configuration
 POCKETBASE_URL=http://localhost:8090 \
@@ -134,6 +140,16 @@ POCKETBASE_ADMIN_EMAIL=admin@test.local \
 POCKETBASE_ADMIN_PASSWORD=testpassword123 \
 bun test tests/integration/
 ```
+
+### Integration Test Suites
+
+The integration tests are organized into specialized suites:
+
+1. **pocketbase-client.test.ts** - Basic PocketBase connectivity and health checks
+2. **pocketbase-client-crud.test.ts** - Comprehensive CRUD operations testing
+3. **cli.test.ts** - CLI execution and command testing
+4. **end-to-end.test.ts** - Complete application workflows
+5. **helpers.ts** - Shared utilities for all integration tests
 
 ## Running All Tests
 
@@ -209,14 +225,20 @@ The project uses GitHub Actions for CI/CD. The workflow:
 
 ```
 tests/
-├── unit/                    # Fast, isolated tests
+├── unit/                              # Fast, isolated tests
 │   ├── index.test.ts
 │   ├── types.test.ts
-│   └── pocketbase-client.test.ts
-├── integration/             # Tests with external dependencies
-│   └── pocketbase-client.test.ts
-├── README.md               # TDD methodology
-└── TESTING.md             # This file
+│   ├── pocketbase-client.test.ts
+│   └── commands/
+│       └── version.test.ts
+├── integration/                       # Tests with external dependencies
+│   ├── pocketbase-client.test.ts      # Basic PocketBase connectivity
+│   ├── pocketbase-client-crud.test.ts # CRUD operations
+│   ├── cli.test.ts                    # CLI execution tests
+│   ├── end-to-end.test.ts             # Complete workflows
+│   └── helpers.ts                     # Shared test utilities
+├── README.md                          # TDD methodology
+└── TESTING.md                         # This file
 ```
 
 ## Writing Tests
