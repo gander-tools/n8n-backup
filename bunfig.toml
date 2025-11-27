@@ -1,5 +1,9 @@
 logLevel = "debug" # "debug" | "warn" | "error"
 
+[install]
+# Explicitly use the public npm registry
+registry = "https://registry.npmjs.org"
+
 [test]
 
 
